@@ -3,13 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Thảo 💗</title>
+
+<title>Từ thương thương thành yêu yêu 💗</title>
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html,
@@ -20,29 +26,37 @@ body {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #fff;
-    color: #70455f;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #fff7fb;
+    color: #754861;
 }
 
-/* ==================================================
-   CÁC MÀN HÌNH
-================================================== */
+
+/* =====================================================
+   SCREEN
+===================================================== */
 
 .screen {
     position: fixed;
+
     inset: 0;
 
     display: flex;
-    flex-direction: column;
+
     justify-content: center;
     align-items: center;
+
+    flex-direction: column;
 
     opacity: 0;
     visibility: hidden;
 
     transition:
-        opacity .8s ease,
+        opacity .8s cubic-bezier(.22,1,.36,1),
         visibility .8s ease;
 
     overflow: hidden;
@@ -54,177 +68,369 @@ body {
 }
 
 
-/* ==================================================
-   MÀN ĐẦU
-   CHỈ CÓ LỜI NHẠC
-================================================== */
+/* =====================================================
+   START SCREEN
+===================================================== */
 
-#screenLyrics {
+#startScreen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
     background:
         radial-gradient(
             circle at center,
             #ffffff 0%,
-            #fffafa 50%,
-            #fdf3f8 100%
+            #fff6fa 50%,
+            #f7e4ef 100%
+        );
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+}
+
+#startScreen.hide {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+}
+
+.start-box {
+
+    text-align: center;
+
+    padding: 30px;
+
+    animation:
+        startAppear
+        1.2s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+}
+
+.start-heart {
+
+    font-size:
+        clamp(
+            65px,
+            13vw,
+            110px
+        );
+
+    animation:
+        heartBeat
+        1.5s
+        ease-in-out
+        infinite;
+}
+
+.start-title {
+
+    margin-top: 5px;
+
+    font-size:
+        clamp(
+            40px,
+            8vw,
+            70px
+        );
+
+    font-weight: 800;
+
+    color: #8d3f69;
+}
+
+.start-text {
+
+    margin-top: 10px;
+
+    font-size:
+        clamp(
+            15px,
+            2.5vw,
+            21px
+        );
+
+    color: #987187;
+}
+
+#startButton {
+
+    margin-top: 30px;
+
+    padding:
+        15px 45px;
+
+    border: none;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #b96d99,
+            #d991b5
+        );
+
+    color: white;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px
+        rgba(170,80,130,.25);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+#startButton:hover {
+
+    transform:
+        scale(1.07);
+
+    box-shadow:
+        0 15px 35px
+        rgba(170,80,130,.35);
+}
+
+#startButton:active {
+
+    transform:
+        scale(.95);
+}
+
+
+/* =====================================================
+   LYRICS SCREEN
+===================================================== */
+
+#screenLyrics {
+
+    background:
+        radial-gradient(
+            circle at center,
+            #ffffff 0%,
+            #fffafa 55%,
+            #fdf1f7 100%
         );
 }
 
-.opening-lyrics-wrap {
-    width: min(92vw, 950px);
+.lyrics-box {
+
+    width:
+        min(
+            94vw,
+            1100px
+        );
+
+    min-height: 100px;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
     padding: 30px;
 }
 
-.opening-lyrics {
-    max-width: 100%;
 
-    font-size: clamp(22px, 4vw, 42px);
-    line-height: 1.45;
+/*
+   QUAN TRỌNG:
 
-    font-weight: 700;
+   Lời nhạc bây giờ hiện NGUYÊN CÂU.
+   Không còn từng chữ chạy nữa.
+*/
+
+#lyricsText {
+
+    width: 100%;
+
     text-align: center;
 
-    color: #70455f;
+    min-height: 80px;
 
-    opacity: 0;
-    transform: translateY(18px) scale(.97);
-
-    transition:
-        opacity .65s cubic-bezier(.22,1,.36,1),
-        transform .65s cubic-bezier(.22,1,.36,1);
-
-    text-shadow:
-        0 3px 15px rgba(150, 80, 120, .12);
-}
-
-.opening-lyrics.show {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-
-/* ==================================================
-   MÀN CÒN 17 GIÂY
-================================================== */
-
-#screenPrepare {
-    background:
-        radial-gradient(
-            circle at center,
-            #ffffff 0%,
-            #fff7fb 55%,
-            #f9edf4 100%
+    font-size:
+        clamp(
+            21px,
+            4vw,
+            43px
         );
-}
 
-.prepare-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    line-height: 1.5;
 
-    text-align: center;
-
-    z-index: 5;
-}
-
-.prepare-title {
-    font-size: clamp(38px, 7vw, 68px);
     font-weight: 700;
 
     color: #70455f;
-
-    opacity: 0;
-    transform: translateY(20px);
-
-    animation:
-        introAppear .8s
-        cubic-bezier(.22,1,.36,1)
-        forwards;
-}
-
-.prepare-text {
-    margin-top: 10px;
-
-    font-size: clamp(17px, 3vw, 25px);
-
-    color: #8d6079;
-
-    opacity: 0;
-    transform: translateY(15px);
-
-    animation:
-        introAppear .8s
-        cubic-bezier(.22,1,.36,1)
-        .12s forwards;
-}
-
-
-/* ==================================================
-   HỘP QUÀ
-================================================== */
-
-.gift {
-    margin-top: 25px;
-
-    font-size: clamp(90px, 15vw, 160px);
-
-    cursor: pointer;
-    user-select: none;
 
     opacity: 0;
 
     transform:
-        scale(.7)
-        translateY(20px);
+        translateY(7px)
+        scale(.985);
+
+    transition:
+        opacity .18s ease,
+        transform .18s cubic-bezier(.22,1,.36,1);
+}
+
+#lyricsText.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =====================================================
+   GIFT SCREEN
+===================================================== */
+
+#screenGift {
+
+    background:
+        radial-gradient(
+            circle at center,
+            #ffffff 0%,
+            #fff6fa 50%,
+            #f8e7f0 100%
+        );
+}
+
+.gift-content {
+
+    width:
+        min(
+            92vw,
+            750px
+        );
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+.gift-title {
+
+    font-size:
+        clamp(
+            45px,
+            9vw,
+            80px
+        );
+
+    font-weight: 800;
+
+    color: #8c3d68;
 
     animation:
-        giftAppear .9s
+        giftTextIn
+        .9s
         cubic-bezier(.22,1,.36,1)
-        .25s forwards,
-
-        giftFloat 2s
-        ease-in-out
-        1.15s infinite;
+        forwards;
 }
 
+.gift-subtitle {
 
-/* ==================================================
-   LOADING
-================================================== */
+    margin-top: 10px;
 
-.loading-container {
-    width: min(350px, 75vw);
+    font-size:
+        clamp(
+            17px,
+            3vw,
+            25px
+        );
 
-    margin-top: 20px;
-
-    opacity: 0;
+    color: #91667d;
 
     animation:
-        introAppear .8s
-        ease
-        .4s forwards;
+        giftTextIn
+        .9s
+        .15s
+        cubic-bezier(.22,1,.36,1)
+        both;
 }
 
-.loading-bar-background {
+.gift {
+
+    margin-top: 15px;
+
+    font-size:
+        clamp(
+            95px,
+            18vw,
+            175px
+        );
+
+    animation:
+        giftAppear
+        .9s
+        .25s
+        cubic-bezier(.22,1,.36,1)
+        both,
+
+        giftFloat
+        2s
+        1.2s
+        ease-in-out
+        infinite;
+}
+
+.progress-wrap {
+
+    width:
+        min(
+            400px,
+            80vw
+        );
+
+    margin-top: 15px;
+}
+
+.progress-bg {
+
     width: 100%;
-    height: 12px;
 
-    background: rgba(0,0,0,.08);
-
-    border-radius: 50px;
+    height: 14px;
 
     overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        rgba(0,0,0,.08);
 }
 
-#loadingBar {
-    width: 1%;
+#progressBar {
+
+    width: 0%;
+
     height: 100%;
 
-    border-radius: 50px;
+    border-radius: 999px;
 
     background:
         linear-gradient(
@@ -234,127 +440,69 @@ body {
             #e7b0ca
         );
 
-    transition: width .05s linear;
+    transition:
+        width .06s linear;
 }
 
-#loadingPercent {
-    margin-top: 9px;
+#progressPercent {
 
-    font-size: 15px;
+    margin-top: 8px;
+
+    font-size: 16px;
 
     color: #a07891;
 
-    font-weight: 600;
-}
-
-
-/* ==================================================
-   LỜI NHẠC Ở MÀN HAPPY BIRTHDAY
-================================================== */
-
-.final-lyrics {
-    position: fixed;
-
-    left: 50%;
-    bottom: 5vh;
-
-    transform: translateX(-50%);
-
-    width: min(92vw, 950px);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    z-index: 100;
-
-    pointer-events: none;
-}
-
-.final-lyrics-text {
-    max-width: 95%;
-
-    padding: 12px 25px;
-
-    border-radius: 999px;
-
-    background: rgba(255,255,255,.58);
-
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    border:
-        1px solid
-        rgba(255,255,255,.75);
-
-    color: #8c3d68;
-
-    font-size: clamp(18px, 3vw, 30px);
-
-    line-height: 1.35;
-
     font-weight: 700;
-
-    text-align: center;
-
-    opacity: 0;
-
-    transform:
-        translateY(15px)
-        scale(.96);
-
-    transition:
-        opacity .6s
-        cubic-bezier(.22,1,.36,1),
-
-        transform .6s
-        cubic-bezier(.22,1,.36,1);
-
-    text-shadow:
-        0 2px 12px
-        rgba(180,60,130,.18);
-}
-
-.final-lyrics-text.show {
-    opacity: 1;
-
-    transform:
-        translateY(0)
-        scale(1);
 }
 
 
-/* ==================================================
-   HAPPY BIRTHDAY
-================================================== */
+/* =====================================================
+   FINAL SCREEN
+===================================================== */
 
 #screenFinal {
+
     background:
         radial-gradient(
-            circle at 50% 30%,
-            #fff 0%,
-            #fff7fb 45%,
-            #f9e8f1 100%
+            circle at center,
+            #ffffff 0%,
+            #fff7fb 50%,
+            #f8e7f0 100%
         );
 
     text-align: center;
 }
 
 .final-small {
-    font-size: clamp(13px, 2vw, 18px);
+
+    font-size:
+        clamp(
+            13px,
+            2vw,
+            18px
+        );
 
     letter-spacing: 2px;
 
     color: #a06b87;
 
-    margin-bottom: 10px;
-
     animation:
-        finalAppear 1s ease forwards;
+        finalIn
+        1s
+        ease
+        forwards;
 }
 
 .final-title {
-    font-size: clamp(42px, 9vw, 90px);
+
+    margin-top: 8px;
+
+    font-size:
+        clamp(
+            42px,
+            9vw,
+            90px
+        );
 
     font-weight: 800;
 
@@ -367,88 +515,208 @@ body {
         );
 
     -webkit-background-clip: text;
+
     -webkit-text-fill-color: transparent;
 
     animation:
-        finalTitleAppear 1s
+        finalTitleIn
+        1s
         cubic-bezier(.22,1,.36,1)
         forwards;
 }
 
 .final-name {
+
     margin-top: 5px;
 
-    font-size: clamp(35px, 7vw, 65px);
+    font-size:
+        clamp(
+            38px,
+            8vw,
+            68px
+        );
 
-    font-weight: 700;
+    font-weight: 800;
 
     color: #8c3d68;
 
     animation:
-        finalAppear 1s ease .2s
+        finalIn
+        1s
+        .2s
+        ease
         both;
 }
 
 .cake {
+
     margin-top: 12px;
 
-    font-size: clamp(65px, 10vw, 100px);
+    font-size:
+        clamp(
+            65px,
+            11vw,
+            105px
+        );
 
     animation:
-        cakeAppear 1s
+        cakeIn
+        1s
+        .3s
         cubic-bezier(.22,1,.36,1)
-        .3s both;
+        both;
 }
 
 .message {
-    max-width: 650px;
 
-    padding: 0 25px;
+    max-width: 700px;
+
+    padding:
+        0 25px;
 
     margin-top: 15px;
 
-    font-size: clamp(15px, 2.2vw, 20px);
+    font-size:
+        clamp(
+            15px,
+            2.2vw,
+            20px
+        );
 
     line-height: 1.7;
 
     color: #806072;
 
     animation:
-        finalAppear 1s ease .45s
+        finalIn
+        1s
+        .45s
+        ease
         both;
 }
 
 .message strong {
+
     color: #a34f7d;
 }
 
 
-/* ==================================================
-   NÚT NHẠC
-================================================== */
+/* =====================================================
+   FINAL LYRICS
+===================================================== */
 
-.music-button {
+.final-lyrics {
+
     position: fixed;
 
-    right: 20px;
-    top: 20px;
+    left: 50%;
+
+    bottom: 3vh;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        min(
+            94vw,
+            1000px
+        );
+
+    display: flex;
+
+    justify-content: center;
+
+    pointer-events: none;
+
+    z-index: 100;
+}
+
+#finalLyrics {
+
+    min-height: 45px;
+
+    padding:
+        10px 24px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .72
+        );
+
+    backdrop-filter:
+        blur(12px);
+
+    color: #8c3d68;
+
+    font-size:
+        clamp(
+            16px,
+            3vw,
+            28px
+        );
+
+    font-weight: 700;
+
+    text-align: center;
+
+    opacity: 0;
+
+    transform:
+        translateY(7px);
+
+    transition:
+        opacity .18s ease,
+        transform .18s ease;
+}
+
+#finalLyrics.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =====================================================
+   MUSIC BUTTON
+===================================================== */
+
+#musicButton {
+
+    position: fixed;
+
+    top: 18px;
+
+    right: 18px;
+
+    z-index: 500;
 
     width: 48px;
-    height: 48px;
 
-    z-index: 200;
+    height: 48px;
 
     display: none;
 
-    border: 1px solid
-        rgba(255,255,255,.7);
+    border: none;
 
     border-radius: 50%;
 
     background:
-        rgba(255,255,255,.6);
+        rgba(
+            255,
+            255,
+            255,
+            .75
+        );
 
-    backdrop-filter: blur(10px);
+    backdrop-filter:
+        blur(10px);
 
     cursor: pointer;
 
@@ -456,85 +724,121 @@ body {
 
     box-shadow:
         0 5px 20px
-        rgba(120,70,100,.12);
+        rgba(
+            120,
+            70,
+            100,
+            .15
+        );
 }
 
 
-/* ==================================================
-   TIM BAY
-================================================== */
+/* =====================================================
+   FLOATING HEART
+===================================================== */
 
 .floating {
+
     position: fixed;
 
-    bottom: -60px;
+    bottom: -70px;
 
     z-index: 20;
 
     pointer-events: none;
 
     animation:
-        floatUp linear forwards;
+        floatUp
+        linear
+        forwards;
 }
 
 
-/* ==================================================
+/* =====================================================
    CONFETTI
-================================================== */
+===================================================== */
 
 .confetti {
+
     position: fixed;
 
     top: -20px;
 
     width: 8px;
+
     height: 14px;
 
     z-index: 15;
 
+    pointer-events: none;
+
     border-radius: 2px;
 
-    pointer-events: none;
-
     animation:
-        confettiFall linear forwards;
+        confettiFall
+        linear
+        forwards;
 }
 
 
-/* ==================================================
-   SPARKLE
-================================================== */
+/* =====================================================
+   ANIMATIONS
+===================================================== */
 
-.sparkle {
-    position: fixed;
-
-    z-index: 25;
-
-    color: #d98ab0;
-
-    font-size: 20px;
-
-    pointer-events: none;
-
-    animation:
-        sparkleAnimation 3s ease forwards;
-}
-
-
-/* ==================================================
-   ANIMATION
-================================================== */
-
-@keyframes introAppear {
+@keyframes startAppear {
 
     from {
+
         opacity: 0;
-        transform: translateY(20px);
+
+        transform:
+            translateY(30px)
+            scale(.95);
     }
 
     to {
+
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes heartBeat {
+
+    0%,100% {
+
+        transform:
+            scale(1);
+    }
+
+    50% {
+
+        transform:
+            scale(1.12);
+    }
+}
+
+
+@keyframes giftTextIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
     }
 }
 
@@ -542,14 +846,18 @@ body {
 @keyframes giftAppear {
 
     from {
+
         opacity: 0;
+
         transform:
             scale(.7)
             translateY(20px);
     }
 
     to {
+
         opacity: 1;
+
         transform:
             scale(1)
             translateY(0);
@@ -559,14 +867,15 @@ body {
 
 @keyframes giftFloat {
 
-    0%,
-    100% {
+    0%,100% {
+
         transform:
             translateY(0)
             rotate(0deg);
     }
 
     50% {
+
         transform:
             translateY(-12px)
             rotate(-2deg);
@@ -574,31 +883,41 @@ body {
 }
 
 
-@keyframes finalAppear {
+@keyframes finalIn {
 
     from {
+
         opacity: 0;
-        transform: translateY(15px);
+
+        transform:
+            translateY(15px);
     }
 
     to {
+
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
     }
 }
 
 
-@keyframes finalTitleAppear {
+@keyframes finalTitleIn {
 
     from {
+
         opacity: 0;
+
         transform:
             scale(.85)
             translateY(20px);
     }
 
     to {
+
         opacity: 1;
+
         transform:
             scale(1)
             translateY(0);
@@ -606,20 +925,22 @@ body {
 }
 
 
-@keyframes cakeAppear {
+@keyframes cakeIn {
 
     from {
+
         opacity: 0;
+
         transform:
-            scale(.5)
-            translateY(20px);
+            scale(.5);
     }
 
     to {
+
         opacity: 1;
+
         transform:
-            scale(1)
-            translateY(0);
+            scale(1);
     }
 }
 
@@ -627,6 +948,7 @@ body {
 @keyframes floatUp {
 
     0% {
+
         transform:
             translateY(0)
             rotate(0deg);
@@ -635,13 +957,15 @@ body {
     }
 
     10% {
+
         opacity: 1;
     }
 
     100% {
+
         transform:
             translateY(-115vh)
-            rotate(25deg);
+            rotate(30deg);
 
         opacity: 0;
     }
@@ -651,6 +975,7 @@ body {
 @keyframes confettiFall {
 
     0% {
+
         transform:
             translateY(0)
             rotate(0deg);
@@ -659,6 +984,7 @@ body {
     }
 
     100% {
+
         transform:
             translateY(110vh)
             rotate(720deg);
@@ -668,128 +994,138 @@ body {
 }
 
 
-@keyframes sparkleAnimation {
-
-    0% {
-        opacity: 0;
-        transform: scale(.3);
-    }
-
-    30% {
-        opacity: 1;
-        transform: scale(1.2);
-    }
-
-    70% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-        transform: scale(.3);
-    }
-}
-
-
-/* ==================================================
+/* =====================================================
    MOBILE
-================================================== */
+===================================================== */
 
 @media (max-width: 600px) {
 
-    .opening-lyrics {
+    #lyricsText {
+
         font-size: 20px;
+
+        min-height: 65px;
+
+        line-height: 1.45;
     }
 
-    .prepare-title {
-        font-size: 40px;
+    .gift-title {
+
+        font-size: 43px;
     }
 
-    .prepare-text {
+    .gift-subtitle {
+
         font-size: 17px;
     }
 
     .gift {
-        font-size: 100px;
+
+        font-size: 105px;
     }
 
-    .final-lyrics {
-        bottom: 3vh;
-    }
+    #finalLyrics {
 
-    .final-lyrics-text {
         font-size: 17px;
-        padding: 10px 16px;
-        border-radius: 22px;
-    }
 
-    .music-button {
-        right: 12px;
-        top: 12px;
+        padding:
+            9px 16px;
+
+        border-radius: 20px;
     }
 
     .message {
+
         font-size: 15px;
     }
 }
+
 </style>
 </head>
 
 
 <body>
 
-<!-- ==================================================
-     MÀN 1: CHỈ LỜI NHẠC
-================================================== -->
 
-<section id="screenLyrics" class="screen active">
+<!-- =====================================================
+     START
+===================================================== -->
 
-    <div class="opening-lyrics-wrap">
+<div id="startScreen">
 
-        <div
-            id="openingLyrics"
-            class="opening-lyrics">
+    <div class="start-box">
+
+        <div class="start-heart">
+            💗
         </div>
+
+        <div class="start-title">
+            Thảo ơi...
+        </div>
+
+        <div class="start-text">
+            Có một món nhỏ dành cho Thảo nè...
+        </div>
+
+        <button id="startButton">
+            🎵 Bắt đầu
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     LYRICS
+===================================================== -->
+
+<section
+    id="screenLyrics"
+    class="screen active"
+>
+
+    <div class="lyrics-box">
+
+        <div id="lyricsText"></div>
 
     </div>
 
 </section>
 
 
-<!-- ==================================================
-     MÀN 2:
-     CÒN 17 GIÂY → THẢO ƠI + QUÀ + LOADING
-================================================== -->
+<!-- =====================================================
+     GIFT
+===================================================== -->
 
-<section id="screenPrepare" class="screen">
+<section
+    id="screenGift"
+    class="screen"
+>
 
-    <div class="prepare-content">
+    <div class="gift-content">
 
-        <div class="prepare-title">
+        <div class="gift-title">
             Thảo ơi
         </div>
 
-        <div class="prepare-text">
+        <div class="gift-subtitle">
             Có một món nhỏ dành cho Thảo nè...
         </div>
 
-        <div
-            id="gift"
-            class="gift">
+        <div class="gift">
             🎁
         </div>
 
-        <div class="loading-container">
+        <div class="progress-wrap">
 
-            <div class="loading-bar-background">
+            <div class="progress-bg">
 
-                <div
-                    id="loadingBar">
-                </div>
+                <div id="progressBar"></div>
 
             </div>
 
-            <div id="loadingPercent">
+            <div id="progressPercent">
                 1%
             </div>
 
@@ -800,14 +1136,17 @@ body {
 </section>
 
 
-<!-- ==================================================
-     MÀN CUỐI
-================================================== -->
+<!-- =====================================================
+     FINAL
+===================================================== -->
 
-<section id="screenFinal" class="screen">
+<section
+    id="screenFinal"
+    class="screen"
+>
 
     <div class="final-small">
-        ✨ HÔM NAY CÓ MỘT NGƯỜI ĐẶC BIỆT ✨
+        ✨ DÀNH CHO MỘT NGƯỜI ĐẶC BIỆT ✨
     </div>
 
     <div class="final-title">
@@ -838,280 +1177,256 @@ body {
 
     </div>
 
-    <!-- LỜI BÀI HÁT -->
     <div class="final-lyrics">
 
-        <div
-            id="finalLyrics"
-            class="final-lyrics-text">
-        </div>
+        <div id="finalLyrics"></div>
 
     </div>
 
 </section>
 
 
-<!-- ==================================================
-     NÚT NHẠC
-================================================== -->
+<!-- =====================================================
+     MUSIC BUTTON
+===================================================== -->
 
-<button
-    id="musicButton"
-    class="music-button"
-    aria-label="Bật hoặc tắt nhạc">
-
+<button id="musicButton">
     🔊
-
 </button>
 
 
-<!-- ==================================================
-     NHẠC
-     ĐẶT music.mp3 CÙNG THƯ MỤC VỚI FILE HTML
-================================================== -->
+<!-- =====================================================
+     MUSIC
+===================================================== -->
 
 <audio
     id="music"
-    preload="auto">
+    preload="auto"
+>
 
     <source
         src="music.mp3"
-        type="audio/mpeg">
+        type="audio/mpeg"
+    >
 
 </audio>
 
 
 <script>
 
-/* ==================================================
-   LỜI BÀI HÁT
-================================================== */
+/* =====================================================
+   LỜI NHẠC
+===================================================== */
 
 const lyrics = [
 
     {
-        text: "Em ơi anh đâu dễ dàng nói ra nên lời",
-        time: 0.0,
-        end: 5.2
+        text:
+        "Em ơi anh đâu dễ dàng nói ra nên lời",
+
+        start: 0.00,
+        end: 4.65
     },
 
     {
-        text: "Rằng trong lòng anh từ lâu cũng thấy rối bời",
-        time: 5.2,
-        end: 10.8
+        text:
+        "Rằng trong lòng anh từ lâu cũng thấy rối bời",
+
+        start: 4.65,
+        end: 9.75
     },
 
     {
-        text: "Nhưng hai ta nên chầm chậm thế thôi em à",
-        time: 10.8,
-        end: 16.1
+        text:
+        "Nhưng hai ta nên chầm chậm thế thôi em à",
+
+        start: 9.75,
+        end: 14.70
     },
 
     {
-        text: "Từ thích thích, thành yêu yêu, rồi thương thương",
-        time: 16.1,
-        end: 21.8
+        text:
+        "Từ thích thích, thành yêu yêu, rồi thương thương",
+
+        start: 14.70,
+        end: 19.80
     },
 
     {
-        text: "Ngày anh thấy, thấy tim đập nhanh lúc bên em",
-        time: 21.8,
-        end: 27.2
+        text:
+        "Ngày anh thấy, thấy tim đập nhanh lúc bên em",
+
+        start: 19.80,
+        end: 24.75
     },
 
     {
-        text: "Là anh đã biết, biết anh chẳng có một đường lui",
-        time: 27.2,
-        end: 32.9
+        text:
+        "Là anh đã biết, biết anh chẳng có một đường lui",
+
+        start: 24.75,
+        end: 30.05
     },
 
     {
-        text: "Thấy, thấy như trạm xăng với ôtô",
-        time: 32.9,
-        end: 37.8
+        text:
+        "Thấy, thấy như trạm xăng với ôtô",
+
+        start: 30.05,
+        end: 34.55
     },
 
     {
-        text: "Vì gặp em là anh chỉ đổ mà thôi",
-        time: 37.8,
-        end: 42.6
+        text:
+        "Vì gặp em là anh chỉ đổ mà thôi",
+
+        start: 34.55,
+        end: 39.00
     },
 
     {
-        text: "Nên em đành viết chiếc thư tình, thư tình",
-        time: 42.6,
-        end: 46.8
+        text:
+        "Nên em đành viết chiếc thư tình, thư tình",
+
+        start: 39.00,
+        end: 43.15
     },
 
     {
-        text: "Để thay em nói hết tâm tư trong mình",
-        time: 46.8,
-        end: 50.0
+        text:
+        "Để thay em nói hết tâm tư trong mình",
+
+        start: 43.15,
+        end: 46.65
     },
 
     {
-        text: "Mong anh đừng nói những lời từ chối",
-        time: 50.0,
-        end: 52.3
+        text:
+        "Mong anh đừng nói những lời từ chối",
+
+        start: 46.65,
+        end: 49.75
     },
 
     {
-        text: "Em chỉ cần biết tâm tư anh thế thôi",
-        time: 52.3,
-        end: 54.45
+        text:
+        "Em chỉ cần biết tâm tư anh thế thôi",
+
+        start: 49.75,
+        end: 54.00
     }
 
 ];
 
 
-/* ==================================================
-   ELEMENT
-================================================== */
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
 const music =
-    document.getElementById("music");
+    document.getElementById(
+        "music"
+    );
 
-const openingLyrics =
-    document.getElementById("openingLyrics");
+const startScreen =
+    document.getElementById(
+        "startScreen"
+    );
+
+const startButton =
+    document.getElementById(
+        "startButton"
+    );
+
+const lyricsText =
+    document.getElementById(
+        "lyricsText"
+    );
 
 const finalLyrics =
-    document.getElementById("finalLyrics");
+    document.getElementById(
+        "finalLyrics"
+    );
 
 const musicButton =
-    document.getElementById("musicButton");
-
-const loadingBar =
-    document.getElementById("loadingBar");
-
-const loadingPercent =
-    document.getElementById("loadingPercent");
+    document.getElementById(
+        "musicButton"
+    );
 
 const screenLyrics =
-    document.getElementById("screenLyrics");
+    document.getElementById(
+        "screenLyrics"
+    );
 
-const screenPrepare =
-    document.getElementById("screenPrepare");
+const screenGift =
+    document.getElementById(
+        "screenGift"
+    );
 
 const screenFinal =
-    document.getElementById("screenFinal");
+    document.getElementById(
+        "screenFinal"
+    );
+
+const progressBar =
+    document.getElementById(
+        "progressBar"
+    );
+
+const progressPercent =
+    document.getElementById(
+        "progressPercent"
+    );
 
 
-/* ==================================================
-   BIẾN
-================================================== */
+/* =====================================================
+   VARIABLES
+===================================================== */
 
 let currentLyric = -1;
 
-let prepareStarted = false;
+let giftStarted = false;
 
-let finalShown = false;
+let finalStarted = false;
+
+let animationFrame = null;
+
+let progressFrame = null;
+
+let finalLyricIndex = -1;
 
 let celebrationStarted = false;
 
 
-/* ==================================================
-   CHUYỂN MÀN
-================================================== */
+/* =====================================================
+   CHANGE SCREEN
+===================================================== */
 
 function showScreen(screen) {
 
     document
         .querySelectorAll(".screen")
-        .forEach(item => {
+        .forEach(
+            item => {
 
-            item.classList.remove("active");
-
-        });
-
-    screen.classList.add("active");
-}
-
-
-/* ==================================================
-   HIỆN LỜI
-================================================== */
-
-function showLyric(index) {
-
-    if (index === currentLyric) {
-        return;
-    }
-
-    currentLyric = index;
-
-
-    /* Không có câu */
-    if (index < 0) {
-
-        openingLyrics.classList.remove("show");
-
-        finalLyrics.classList.remove("show");
-
-        return;
-    }
-
-
-    const text =
-        lyrics[index].text;
-
-
-    /*
-     * TRƯỚC KHI MỞ QUÀ
-     * lời ở giữa màn hình
-     */
-
-    if (!finalShown) {
-
-        openingLyrics.classList.remove("show");
-
-        setTimeout(() => {
-
-            if (!finalShown) {
-
-                openingLyrics.textContent =
-                    text;
-
-                openingLyrics.classList.add("show");
+                item.classList.remove(
+                    "active"
+                );
 
             }
+        );
 
-        }, 220);
-
-        return;
-    }
-
-
-    /*
-     * SAU KHI MỞ QUÀ
-     * lời nằm phía dưới
-     */
-
-    finalLyrics.classList.remove("show");
-
-    setTimeout(() => {
-
-        finalLyrics.textContent =
-            text;
-
-        finalLyrics.classList.add("show");
-
-    }, 220);
-
+    screen.classList.add(
+        "active"
+    );
 }
 
 
-/* ==================================================
-   CẬP NHẬT LỜI THEO NHẠC
-================================================== */
+/* =====================================================
+   FIND LYRIC
+===================================================== */
 
-function updateLyrics() {
-
-    const currentTime =
-        music.currentTime;
-
-
-    let index = -1;
-
+function getLyricIndex(time) {
 
     for (
         let i = 0;
@@ -1120,254 +1435,584 @@ function updateLyrics() {
     ) {
 
         if (
-            currentTime >= lyrics[i].time &&
-            currentTime < lyrics[i].end
+            time >= lyrics[i].start &&
+            time < lyrics[i].end
         ) {
 
-            index = i;
-
-            break;
+            return i;
         }
-
     }
 
+    return -1;
+}
 
-    showLyric(index);
+
+/* =====================================================
+   HIỆN NGUYÊN CÂU
+=====================================================
+
+   Đây chính là phần bạn yêu cầu.
+
+   Khi nhạc chạm start của câu:
+
+   Ví dụ:
+
+   0.00s
+   → hiện NGAY:
+   "Em ơi anh đâu dễ dàng nói ra nên lời"
+
+   4.65s
+   → hiện NGAY:
+   "Rằng trong lòng anh từ lâu cũng thấy rối bời"
+
+   Không chạy từng chữ.
+===================================================== */
+
+function displayLyric(index) {
+
+    if (
+        index < 0 ||
+        index >= lyrics.length
+    ) {
+        return;
+    }
+
+    const item =
+        lyrics[index];
 
 
     /*
-     * KHI CÒN 17 GIÂY
-     * bắt đầu màn quà
+     * Xóa hiệu ứng câu cũ.
+     */
+
+    lyricsText.classList.remove(
+        "show"
+    );
+
+
+    /*
+     * Chỉ chờ 20ms rồi đưa nguyên câu vào.
+     *
+     * Không có typing.
+     * Không có từng chữ.
+     * Không có delay theo độ dài câu.
+     */
+
+    setTimeout(
+        () => {
+
+            /*
+             * Nếu trong lúc chờ
+             * đã chuyển sang câu khác
+             * thì bỏ qua.
+             */
+
+            if (
+                currentLyric !== index
+            ) {
+                return;
+            }
+
+
+            /*
+             * NGUYÊN CÂU được đưa vào
+             * một lần duy nhất.
+             */
+
+            lyricsText.textContent =
+                item.text;
+
+
+            /*
+             * Hiện ngay.
+             */
+
+            lyricsText.classList.add(
+                "show"
+            );
+
+        },
+
+        20
+    );
+}
+
+
+/* =====================================================
+   UPDATE LYRICS
+===================================================== */
+
+function updateLyrics() {
+
+    if (
+        music.paused ||
+        finalStarted
+    ) {
+        return;
+    }
+
+
+    if (
+        !music.duration
+    ) {
+
+        animationFrame =
+            requestAnimationFrame(
+                updateLyrics
+            );
+
+        return;
+    }
+
+
+    const time =
+        music.currentTime;
+
+
+    const remaining =
+        music.duration -
+        time;
+
+
+    /*
+     * 22 GIÂY CUỐI
      */
 
     if (
-        music.duration &&
-        !prepareStarted &&
-        music.duration - currentTime <= 17
+        remaining <= 22
     ) {
 
-        startPrepare();
+        if (
+            !giftStarted
+        ) {
 
+            startGift();
+        }
+
+        return;
     }
 
+
+    /*
+     * Xác định câu hiện tại.
+     */
+
+    const index =
+        getLyricIndex(
+            time
+        );
+
+
+    /*
+     * Nếu sang câu mới
+     * thì hiện NGUYÊN CÂU ngay.
+     */
+
+    if (
+        index !== -1 &&
+        index !== currentLyric
+    ) {
+
+        currentLyric =
+            index;
+
+        displayLyric(
+            index
+        );
+    }
+
+
+    animationFrame =
+        requestAnimationFrame(
+            updateLyrics
+        );
 }
 
 
+/* =====================================================
+   PHẦN QUÀ
+===================================================== */
+
+function startGift() {
+
+    if (
+        giftStarted
+    ) {
+        return;
+    }
+
+
+    giftStarted =
+        true;
+
+
+    /*
+     * Ẩn lời cũ.
+     */
+
+    lyricsText.classList.remove(
+        "show"
+    );
+
+
+    /*
+     * Chuyển sang màn hình quà.
+     */
+
+    setTimeout(
+        () => {
+
+            showScreen(
+                screenGift
+            );
+
+        },
+        250
+    );
+
+
+    /*
+     * Bắt đầu thanh tiến trình.
+     */
+
+    updateGiftProgress();
+
+
+    /*
+     * Tim, hoa, confetti.
+     */
+
+    if (
+        !celebrationStarted
+    ) {
+
+        celebrationStarted =
+            true;
+
+        startCelebration();
+    }
+}
+
+
+/* =====================================================
+   PROGRESS 1 → 100
+===================================================== */
+
+function updateGiftProgress() {
+
+    if (
+        finalStarted ||
+        !music.duration
+    ) {
+        return;
+    }
+
+
+    const remaining =
+        music.duration -
+        music.currentTime;
+
+
+    /*
+     * 22 giây = bắt đầu.
+
+     * 5 giây = hoàn thành.
+
+     * Tổng thời gian:
+     *
+     * 17 giây.
+     */
+
+    let progress =
+        (
+            22 -
+            remaining
+        ) /
+        17;
+
+
+    progress =
+        Math.max(
+            0,
+            Math.min(
+                1,
+                progress
+            )
+        );
+
+
+    const percent =
+        Math.max(
+            1,
+            Math.floor(
+                progress * 100
+            )
+        );
+
+
+    progressBar.style.width =
+        percent + "%";
+
+
+    progressPercent.textContent =
+        percent + "%";
+
+
+    /*
+     * Còn đúng 5 giây:
+     * sang màn hình cuối.
+     */
+
+    if (
+        remaining <= 5 &&
+        !finalStarted
+    ) {
+
+        startFinal();
+
+        return;
+    }
+
+
+    progressFrame =
+        requestAnimationFrame(
+            updateGiftProgress
+        );
+}
+
+
+/* =====================================================
+   FINAL SCREEN
+===================================================== */
+
+function startFinal() {
+
+    if (
+        finalStarted
+    ) {
+        return;
+    }
+
+
+    finalStarted =
+        true;
+
+
+    if (
+        progressFrame
+    ) {
+
+        cancelAnimationFrame(
+            progressFrame
+        );
+    }
+
+
+    progressBar.style.width =
+        "100%";
+
+    progressPercent.textContent =
+        "100%";
+
+
+    /*
+     * Chuyển màn hình.
+     *
+     * NHẠC VẪN TIẾP TỤC.
+     */
+
+    setTimeout(
+        () => {
+
+            showScreen(
+                screenFinal
+            );
+
+        },
+        200
+    );
+
+
+    /*
+     * Fade nhạc ở gần cuối.
+     */
+
+    setTimeout(
+        () => {
+
+            fadeOutMusic();
+
+        },
+        4300
+    );
+}
+
+
+/* =====================================================
+   FADE OUT MUSIC
+===================================================== */
+
+function fadeOutMusic() {
+
+    let volume =
+        music.volume;
+
+
+    const fade =
+        setInterval(
+            () => {
+
+                volume -= 0.05;
+
+
+                if (
+                    volume <= 0
+                ) {
+
+                    music.volume =
+                        0;
+
+                    clearInterval(
+                        fade
+                    );
+
+                    music.pause();
+
+                    return;
+                }
+
+
+                music.volume =
+                    volume;
+
+            },
+            100
+        );
+}
+
+
+/* =====================================================
+   AUDIO ENDED
+===================================================== */
+
 music.addEventListener(
-    "timeupdate",
-    updateLyrics
+    "ended",
+    () => {
+
+        finalStarted =
+            true;
+
+        showScreen(
+            screenFinal
+        );
+
+        musicButton.textContent =
+            "🔇";
+    }
 );
 
 
-/* ==================================================
-   BẮT ĐẦU 17 GIÂY CUỐI
-================================================== */
+/* =====================================================
+   LỜI Ở PHẦN CUỐI
+=====================================================
 
-function startPrepare() {
+   Phần này cũng hiện nguyên câu.
+===================================================== */
 
-    if (prepareStarted) {
+function updateFinalLyrics() {
+
+    if (
+        !finalStarted
+    ) {
         return;
     }
 
-    prepareStarted = true;
 
-
-    /*
-     * Lời cũ fade out.
-     */
-
-    openingLyrics.classList.remove("show");
-
-
-    /*
-     * Chuyển sang màn:
-     * Thảo ơi
-     * + quà
-     * + loading
-     */
-
-    setTimeout(() => {
-
-        showScreen(screenPrepare);
-
-    }, 350);
-
-
-    /*
-     * Loading chạy từ 1 → 100
-     * trong toàn bộ 17 giây cuối.
-     */
-
-    const startTime =
-        music.currentTime;
-
-    const endTime =
-        music.duration;
-
-    const totalTime =
-        endTime - startTime;
-
-
-    function updateLoading() {
-
-        if (finalShown) {
-            return;
-        }
-
-
-        const elapsed =
-            music.currentTime - startTime;
-
-
-        let progress =
-            (elapsed / totalTime) * 100;
-
-
-        progress =
-            Math.max(
-                1,
-                Math.min(
-                    100,
-                    progress
-                )
-            );
-
-
-        loadingBar.style.width =
-            progress + "%";
-
-
-        loadingPercent.textContent =
-            Math.round(progress) + "%";
-
-
-        if (
-            progress >= 100 ||
-            music.ended
-        ) {
-
-            openGift();
-
-            return;
-        }
-
-
-        requestAnimationFrame(
-            updateLoading
+    const index =
+        getLyricIndex(
+            music.currentTime
         );
 
-    }
 
+    /*
+     * Không có câu.
+     */
 
-    updateLoading();
+    if (
+        index === -1
+    ) {
 
-}
+        finalLyrics.classList.remove(
+            "show"
+        );
 
-
-/* ==================================================
-   MỞ QUÀ
-================================================== */
-
-function openGift() {
-
-    if (finalShown) {
         return;
     }
 
-    finalShown = true;
-
 
     /*
-     * Màn quà fade out.
+     * Chỉ khi sang câu mới
+     * mới thay nội dung.
      */
 
-    screenPrepare.style.opacity =
-        "0";
+    if (
+        index !== finalLyricIndex
+    ) {
 
-
-    setTimeout(() => {
-
-        /*
-         * Sang Happy Birthday.
-         */
-
-        showScreen(screenFinal);
-
-
-        screenPrepare.style.opacity =
-            "";
-
-
-        musicButton.style.display =
-            "block";
+        finalLyricIndex =
+            index;
 
 
         /*
-         * HIỆU ỨNG
+         * Ẩn rất nhanh.
          */
 
-        startCelebration();
+        finalLyrics.classList.remove(
+            "show"
+        );
 
 
-        /*
-         * Lấy đúng câu đang hát.
-         */
+        setTimeout(
+            () => {
 
-        const currentTime =
-            music.currentTime;
+                /*
+                 * NGUYÊN CÂU.
+                 */
 
-
-        let index = -1;
-
-
-        for (
-            let i = 0;
-            i < lyrics.length;
-            i++
-        ) {
-
-            if (
-                currentTime >= lyrics[i].time &&
-                currentTime < lyrics[i].end
-            ) {
-
-                index = i;
-
-                break;
-            }
-
-        }
+                finalLyrics.textContent =
+                    lyrics[index].text;
 
 
-        if (index >= 0) {
-
-            currentLyric =
-                index;
-
-            finalLyrics.textContent =
-                lyrics[index].text;
-
-
-            requestAnimationFrame(() => {
+                /*
+                 * Hiện ngay.
+                 */
 
                 finalLyrics.classList.add(
                     "show"
                 );
 
-            });
-
-        }
-
-    }, 700);
-
+            },
+            20
+        );
+    }
 }
 
 
-/* ==================================================
-   TIM / HOA / BÓNG BAY
-================================================== */
+/*
+ * Kiểm tra lời cuối liên tục.
+ */
 
-const emojis = [
+setInterval(
+    updateFinalLyrics,
+    30
+);
+
+
+/* =====================================================
+   FLOATING ITEMS
+===================================================== */
+
+const floatingItems = [
 
     "💗",
     "💕",
@@ -1375,13 +2020,10 @@ const emojis = [
     "💝",
     "❤️",
     "💘",
-
     "🌸",
     "🌷",
     "🌹",
-
     "🎀",
-
     "✨",
     "⭐",
     "🎈"
@@ -1392,24 +2034,28 @@ const emojis = [
 function createFloating() {
 
     const item =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     item.className =
         "floating";
 
 
-    item.innerText =
-        emojis[
+    item.textContent =
+        floatingItems[
             Math.floor(
                 Math.random() *
-                emojis.length
+                floatingItems.length
             )
         ];
 
 
     item.style.left =
-        Math.random() * 100 +
+        (
+            Math.random() * 100
+        ) +
         "vw";
 
 
@@ -1417,14 +2063,16 @@ function createFloating() {
         (
             18 +
             Math.random() * 35
-        ) + "px";
+        ) +
+        "px";
 
 
     item.style.animationDuration =
         (
             5 +
-            Math.random() * 7
-        ) + "s";
+            Math.random() * 6
+        ) +
+        "s";
 
 
     document.body.appendChild(
@@ -1432,23 +2080,27 @@ function createFloating() {
     );
 
 
-    setTimeout(() => {
+    setTimeout(
+        () => {
 
-        item.remove();
+            item.remove();
 
-    }, 13000);
-
+        },
+        13000
+    );
 }
 
 
-/* ==================================================
+/* =====================================================
    CONFETTI
-================================================== */
+===================================================== */
 
 function createConfetti() {
 
     const item =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     item.className =
@@ -1456,7 +2108,9 @@ function createConfetti() {
 
 
     item.style.left =
-        Math.random() * 100 +
+        (
+            Math.random() * 100
+        ) +
         "vw";
 
 
@@ -1472,7 +2126,8 @@ function createConfetti() {
         (
             3 +
             Math.random() * 4
-        ) + "s";
+        ) +
+        "s";
 
 
     document.body.appendChild(
@@ -1480,72 +2135,42 @@ function createConfetti() {
     );
 
 
-    setTimeout(() => {
+    setTimeout(
+        () => {
 
-        item.remove();
+            item.remove();
 
-    }, 8000);
-
-}
-
-
-/* ==================================================
-   SPARKLE
-================================================== */
-
-function createSparkle() {
-
-    const item =
-        document.createElement("div");
-
-
-    item.className =
-        "sparkle";
-
-
-    item.innerText =
-        "✦";
-
-
-    item.style.left =
-        Math.random() * 100 +
-        "vw";
-
-
-    item.style.top =
-        Math.random() * 100 +
-        "vh";
-
-
-    document.body.appendChild(
-        item
+        },
+        8000
     );
-
-
-    setTimeout(() => {
-
-        item.remove();
-
-    }, 3000);
-
 }
 
 
-/* ==================================================
-   BÙNG NỔ SINH NHẬT
-================================================== */
+/* =====================================================
+   CELEBRATION
+===================================================== */
 
 function startCelebration() {
 
-    if (celebrationStarted) {
-        return;
-    }
+    /*
+     * Tim + hoa ban đầu.
+     */
 
-    celebrationStarted = true;
+    for (
+        let i = 0;
+        i < 80;
+        i++
+    ) {
+
+        setTimeout(
+            createFloating,
+            i * 25
+        );
+    }
 
 
     /*
-     * Ban đầu bùng nổ.
+     * Confetti ban đầu.
      */
 
     for (
@@ -1555,191 +2180,198 @@ function startCelebration() {
     ) {
 
         setTimeout(
-            createFloating,
-            i * 25
-        );
-
-    }
-
-
-    for (
-        let i = 0;
-        i < 140;
-        i++
-    ) {
-
-        setTimeout(
             createConfetti,
-            i * 18
+            i * 20
         );
-
-    }
-
-
-    for (
-        let i = 0;
-        i < 50;
-        i++
-    ) {
-
-        setTimeout(
-            createSparkle,
-            i * 70
-        );
-
     }
 
 
     /*
-     * Sau đó tiếp tục bay nhẹ.
+     * Sau đó tiếp tục bay.
      */
 
     setInterval(
         createFloating,
-        350
+        450
     );
 
 
     setInterval(
         createConfetti,
-        180
+        250
     );
-
-
-    setInterval(
-        createSparkle,
-        500
-    );
-
 }
 
 
-/* ==================================================
-   NÚT NHẠC
-================================================== */
+/* =====================================================
+   MUSIC BUTTON
+===================================================== */
 
 musicButton.addEventListener(
     "click",
     () => {
 
-        if (music.paused) {
+        if (
+            music.paused
+        ) {
 
             music.play()
-                .then(() => {
+                .then(
+                    () => {
 
-                    musicButton.innerText =
-                        "🔊";
+                        musicButton.textContent =
+                            "🔊";
 
-                });
+                    }
+                );
 
         } else {
 
             music.pause();
 
-            musicButton.innerText =
+            musicButton.textContent =
                 "🔇";
-
         }
-
     }
 );
 
 
-/* ==================================================
-   NHẠC HẾT
-================================================== */
+/* =====================================================
+   START BUTTON
+===================================================== */
 
-music.addEventListener(
-    "ended",
-    () => {
+startButton.addEventListener(
+    "click",
+    async () => {
 
         /*
-         * Lời cuối fade out.
+         * RESET
          */
+
+        currentLyric =
+            -1;
+
+        giftStarted =
+            false;
+
+        finalStarted =
+            false;
+
+        finalLyricIndex =
+            -1;
+
+
+        /*
+         * Reset progress.
+         */
+
+        progressBar.style.width =
+            "0%";
+
+        progressPercent.textContent =
+            "1%";
+
+
+        /*
+         * Reset lời.
+         */
+
+        lyricsText.textContent =
+            "";
+
+        finalLyrics.textContent =
+            "";
+
+
+        lyricsText.classList.remove(
+            "show"
+        );
 
         finalLyrics.classList.remove(
             "show"
         );
 
-        openingLyrics.classList.remove(
-            "show"
-        );
-
-    }
-);
-
-
-/* ==================================================
-   TỰ CHẠY NHẠC
-================================================== */
-
-window.addEventListener(
-    "load",
-    () => {
-
-        music.volume = 1;
-
-        music.currentTime = 0;
-
 
         /*
-         * Thử autoplay.
+         * Nhạc bắt đầu từ đầu.
          */
 
-        music.play()
-            .then(() => {
+        music.currentTime =
+            0;
 
-                musicButton.innerText =
-                    "🔊";
-
-            })
-            .catch(() => {
-
-                /*
-                 * Chrome có thể chặn
-                 * autoplay có tiếng.
-                 *
-                 * Click đầu tiên trên web
-                 * sẽ kích hoạt nhạc.
-                 */
-
-                musicButton.innerText =
-                    "▶️";
-
-            });
-
-    }
-);
+        music.volume =
+            1;
 
 
-/* ==================================================
-   NẾU TRÌNH DUYỆT CHẶN AUTOPLAY
-   → click đầu tiên là chạy nhạc
-================================================== */
+        try {
 
-document.addEventListener(
-    "click",
-    () => {
+            /*
+             * Phát nhạc.
+             */
 
-        if (
-            music.paused &&
-            !music.ended
-        ) {
+            await music.play();
 
-            music.play()
-                .then(() => {
 
-                    musicButton.innerText =
-                        "🔊";
+            /*
+             * Hiện nút âm thanh.
+             */
 
-                })
-                .catch(() => {});
+            musicButton.style.display =
+                "block";
+
+
+            /*
+             * Ẩn start screen.
+             */
+
+            startScreen.classList.add(
+                "hide"
+            );
+
+
+            /*
+             * Hiện lyric screen.
+             */
+
+            showScreen(
+                screenLyrics
+            );
+
+
+            /*
+             * Hủy animation cũ
+             * nếu có.
+             */
+
+            if (
+                animationFrame
+            ) {
+
+                cancelAnimationFrame(
+                    animationFrame
+                );
+            }
+
+
+            /*
+             * Bắt đầu đồng bộ.
+             */
+
+            updateLyrics();
 
         }
 
-    },
-    {
-        once: true
+        catch (error) {
+
+            console.error(
+                error
+            );
+
+            alert(
+                "Không phát được music.mp3. Hãy chắc chắn music.mp3 nằm cùng thư mục với index.html nhé!"
+            );
+        }
+
     }
 );
 
